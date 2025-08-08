@@ -8,11 +8,12 @@ FROM stagex/git:sx2024.03.0@sha256:2c11f2daf9b8c1738cbd966b6de5dd0bcfaf81b675c2d
 FROM stagex/musl:sx2024.03.0@sha256:7db05e6817058a512a66ea82f3b99163069424c281363c2e9a48091d0d1d3bd9 AS musl
 FROM stagex/openssl:sx2024.03.0@sha256:1a2f656ced34d1ade99279c5663fcf0ec4f6526bcc50142079ef8adc080be3a9 AS openssl
 FROM stagex/pkgconf:sx2024.03.0@sha256:31ce4eddaf4e777ddb51f01923089f3321ec5272ca0aa834d475f644279209b8 AS pkgconf
-FROM stagex/rust:sx2024.03.0@sha256:fe22a0fcdb569cb70b8147378463fb6ff800e642be9d50542f8e25a38d90ec7f AS rust
+FROM stagex/core-rust:1.88.0 AS rust
 FROM stagex/zlib:sx2024.03.0@sha256:de8f56f3ece28b14d575329bead53fc5318962ae3cb8f161a2d69710f7ec51f4 AS zlib
 FROM stagex/libunwind:sx2024.03.0 AS libunwind
 FROM stagex/gcc:sx2024.03.0 AS gcc
-FROM stagex/llvm:sx2024.03.0 AS llvm
+FROM stagex/core-llvm:20.1.8 AS llvm
+FROM stagex/core-libffi:3.4.6 AS libffi
 
 FROM scratch as builder
 # Environment variables for Rust builds
@@ -38,6 +39,7 @@ COPY --from=rust . /
 COPY --from=libunwind . /
 COPY --from=gcc . /
 COPY --from=llvm . /
+COPY --from=libffi . /
 
 WORKDIR /src
 
