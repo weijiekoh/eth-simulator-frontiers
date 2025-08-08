@@ -1,0 +1,30 @@
+[package]
+name = "eth-simulator"
+version = "0.1.0"
+edition = "2024"
+authors = ["Koh Wei Jie <contact@kohweijie.com>"]
+
+[[bin]]
+name = "simple_eth_transfer"
+path = "src/simple_eth_transfer.rs"
+
+[[bin]]
+name = "eth_transfer_host"
+path = "src/eth_transfer_host.rs"
+
+[[bin]]
+name = "eth_transfer_enclave"
+path = "src/eth_transfer_enclave.rs"
+
+[dependencies]
+clap = { version = "4.5.41", features = ["derive"] }
+hex = "0.4.3"
+tokio = { version = "1.47.0", features = ["rt-multi-thread"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+simular-core = { path = "./simular-core-fork"}
+alloy-primitives = "0.7.0"
+ethers-core = { version = "2.0.10", default-features = false }
+ethers-providers = "2.0.10"
+serde = { version = "1.0.165", features = ["derive"] }
+serde_json = "1.0.99"
