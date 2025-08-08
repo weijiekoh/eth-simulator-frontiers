@@ -14,6 +14,9 @@ FROM stagex/openssl:sx2024.03.0@sha256:1a2f656ced34d1ade99279c5663fcf0ec4f6526bc
 FROM stagex/pkgconf:sx2024.03.0@sha256:31ce4eddaf4e777ddb51f01923089f3321ec5272ca0aa834d475f644279209b8 AS pkgconf
 FROM stagex/rust:sx2024.03.0@sha256:fe22a0fcdb569cb70b8147378463fb6ff800e642be9d50542f8e25a38d90ec7f AS rust
 FROM stagex/zlib:sx2024.03.0@sha256:de8f56f3ece28b14d575329bead53fc5318962ae3cb8f161a2d69710f7ec51f4 AS zlib
+FROM stagex/libunwind:sx2024.03.0 AS libunwind
+FROM stagex/gcc:sx2024.03.0 AS gcc
+FROM stagex/llvm:sx2024.03.0 AS llvm
 
 FROM scratch as builder
 # Build arguments
@@ -40,6 +43,9 @@ COPY --from=binutils . /
 COPY --from=pkgconf . /
 COPY --from=git . /
 COPY --from=rust . /
+COPY --from=libunwind . /
+COPY --from=gcc . /
+COPY --from=llvm . /
 
 WORKDIR /src
 

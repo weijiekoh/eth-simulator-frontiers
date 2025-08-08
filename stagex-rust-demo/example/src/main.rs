@@ -26,6 +26,6 @@ fn main() {
     println!("Built with musl and statically linked!");
     
     // Display build info
-    println!("Built for target: {}", env!("TARGET"));
-    println!("Rust version: {}", env!("RUSTC_VERSION"));
+    println!("Built for target: x86_64-unknown-linux-musl");
+    println!("Package version: {}", env!("CARGO_PKG_VERSION"));
 }
